@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Master</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Joke Master</h1>
+
+    <!-- card container for 3D flipping effect -->
+    <div class="card-container">
+        <div class="card" id="jokerCard">
+            <!-- front of card (Joker design) -->
+            <div class="card-face card-front"></div>
+
+            <!-- back of card (Joke content) -->
+            <div class="card-face card-back">
+                <% if (typeof joke !== 'undefined') { %>
+                    <p><%= joke %></p>
+                <% } else { %>
+                    <p>Enter your name and flip the card for a personalized joke!</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- form to submit names and flip the card -->
+    <form action="/get-joke" method="POST" onsubmit="flipCard(event)">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <br>
+        <!-- button that triggers the card flip -->
+        <button type="submit">Flip the Joker Card!</button>
+    </form>
+
+    <script>
+        // flip the card when the form is submitted
+        function flipCard(event) {
+            event.preventDefault(); // prevent default form submission
+            document.getElementById('jokerCard').classList.add('flipped'); // add the 'flipped' class to trigger the rotation
+
+            // submit the form after flipping the card
+            setTimeout(function() {
+                event.target.submit(); // submit form after delay
+            }, 5000); // adjust the delay for the flip animation
+        }
+    </script>
+</body>
+</html>
+
